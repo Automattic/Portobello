@@ -25,11 +25,17 @@ class Portobello {
 	function start_catching_translations() {
 		add_filter( 'gettext', array( $this, 'catch_translations' ), 100, 2 );
 		add_filter( 'gettext_with_context', array( $this, 'catch_translations' ), 100, 3 );
+
+		add_filter( 'ngettext', array( $this, 'catch_plural_translations' ), 100, 4 );
+		add_filter( 'ngettext_with_context', array( $this, 'catch_plural_translations' ), 100, 5 );
 	}
 
 	function stop_catching_translations() {
 		remove_filter( 'gettext', array( $this, 'catch_translations' ), 100, 2 );
 		remove_filter( 'gettext_with_context', array( $this, 'catch_translations' ), 100, 3 );
+
+		remove_filter( 'ngettext', array( $this, 'catch_plural_translations' ), 100, 4 );
+		remove_filter( 'ngettext_with_context', array( $this, 'catch_plural_translations' ), 100, 5 );
 	}
 
 	function add_actions() {
@@ -87,18 +93,22 @@ class Portobello {
 	}
 
 	function catch_translations( $translated, $original, $context = '' ) {
+		return $this->catch_plural_translations( $translated, $original, '', 0, $context );
+	}
+
+	function catch_plural_translations( $translated, $singular, $plural, $number = 0, $context = '' ) {
 		// @todo - this isn't right - some translations really are equal the original
-		if ( $translated !== $original ) {
+		if ( $translated !== $singular && $translated !== $plural ) {
 			return $translated;
 		}
 
-		$datum = array( $original, $context );
+		$datum = array( $singular, $plural, $context );
 
 		if ( in_array( $datum, $this->strings ) ) {
 			return $translated;
 		}
 
-		$glotpress_id = $this->get_glotpress_id( $original, '', $context );
+		$glotpress_id = $this->get_glotpress_id( $singular, $plural, $context );
 
 		$this->strings[$glotpress_id] = $datum;
 
@@ -113,6 +123,7 @@ class Portobello {
 	function add_strings_to_script() {
 		$this->stop_catching_translations();
 
+		// @todo output singular and plural?
 		wp_localize_script( 'portobello', 'portobelloData', array(
 			'strings' => wp_list_pluck( $this->strings, 0 ),
 		) );

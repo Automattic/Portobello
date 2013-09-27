@@ -140,7 +140,7 @@ class Portobello {
 		// @todo output singular and plural?
 		wp_localize_script( 'portobello', 'portobelloData', array(
 			'strings' => wp_list_pluck( $this->strings, 0 ),
-			'lang' => get_user_lang_code(),
+			'lang' => $lang,
 		) );
 	}
 }

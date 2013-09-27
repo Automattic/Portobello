@@ -117,15 +117,30 @@ class Portobello {
 
 	function enqueue_scripts() {
 		wp_register_script( 'portobello', plugins_url( 'js/portobello.js', __FILE__ ), array(), '20130927', true );
-		wp_enqueue_script( 'portobello' );
 	}
 
 	function add_strings_to_script() {
 		$this->stop_catching_translations();
 
+		if ( function_exists( 'get_user_lang_code' ) ) {
+			$lang = get_user_lang_code();
+		} else {
+			// This isn't right, but it doesn't really matter.
+			list( $lang ) = explode( '_', get_locale() );
+		}
+
+		$lang = strtolower( (string) $lang );
+
+		if ( !$lang || 'en' == $lang ) {
+//			return;
+		}
+
+		wp_enqueue_script( 'portobello' );
+
 		// @todo output singular and plural?
 		wp_localize_script( 'portobello', 'portobelloData', array(
 			'strings' => wp_list_pluck( $this->strings, 0 ),
+			'lang' => get_user_lang_code(),
 		) );
 	}
 }

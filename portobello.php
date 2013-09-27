@@ -24,10 +24,12 @@ class Portobello {
 
 	function start_catching_translations() {
 		add_filter( 'gettext', array( $this, 'catch_translations' ), 100, 2 );
+		add_filter( 'gettext_with_context', array( $this, 'catch_translations' ), 100, 3 );
 	}
 
 	function stop_catching_translations() {
 		remove_filter( 'gettext', array( $this, 'catch_translations' ), 100, 2 );
+		remove_filter( 'gettext_with_context', array( $this, 'catch_translations' ), 100, 3 );
 	}
 
 	function add_actions() {
@@ -41,17 +43,64 @@ class Portobello {
 		add_action( 'admin_footer', array( $this, 'add_strings_to_script' ) );
 	}
 
-	function catch_translations( $translated, $original ) {
-		static $glotpress_id = 0;
+	// @todo bulk queries and get_cache_multi
+	function get_glotpress_id( $singular, $plural = '', $context = '' ) {
+		global $wpdb;
 
+		if ( ! defined( 'IS_WPCOM' ) || ! IS_WPCOM ) {
+			return $this->fake_glotpress_id();
+		}
+
+		$cache_key = md5( $singular . '|' . $plural . '|' . $context );
+
+		$glotpress_id = wp_cache_get( $cache_key, 'gp_originals' );
+
+		if ( $glotpress_id ) {
+			return $glotpress_id;
+		}
+
+		$query = $wpdb->prepare( "SELECT `id` FROM `gp_originals` WHERE `project_id` = 1 AND `singular` = %s", $singular );
+
+		if ( $plural ) {
+			$query .= $wpdb->prepare( " AND `plural` = %s", $plural );
+		} else {
+			$query .= " AND `plural` IS NULL";
+		}
+
+		if ( $context ) {
+			$query .= $wpdb->prepare( " AND `context` = %s", $context );
+		} else {
+			$query .= " AND `context` IS NULL";
+		}
+
+		$glotpress_id = $wpdb->get_var( $query );
+
+		wp_cache_add( $cache_key, $glotpress_id, 'gp_originals' );
+
+		return $glotpress_id;
+	}
+
+	function fake_glotpress_id() {
+		static $glotpress_id = 0;
+		$glotpress_id += 10;
+		return $glotpress_id;
+	}
+
+	function catch_translations( $translated, $original, $context = '' ) {
 		// @todo - this isn't right - some translations really are equal the original
 		if ( $translated !== $original ) {
 			return $translated;
 		}
 
-		$glotpress_id += 10;
+		$datum = array( $original, $context );
 
-		$this->strings[$glotpress_id] = $original;
+		if ( in_array( $datum, $this->strings ) ) {
+			return $translated;
+		}
+
+		$glotpress_id = $this->get_glotpress_id( $original, '', $context );
+
+		$this->strings[$glotpress_id] = $datum;
 
 		return $translated;
 	}
@@ -63,8 +112,9 @@ class Portobello {
 
 	function add_strings_to_script() {
 		$this->stop_catching_translations();
+
 		wp_localize_script( 'portobello', 'portobelloData', array(
-			'strings' => $this->strings,
+			'strings' => wp_list_pluck( $this->strings, 0 ),
 		) );
 	}
 }

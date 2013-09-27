@@ -42,12 +42,16 @@ class Portobello {
 	}
 
 	function catch_translations( $translated, $original ) {
+		static $glotpress_id = 0;
+
 		// @todo - this isn't right - some translations really are equal the original
 		if ( $translated !== $original ) {
 			return $translated;
 		}
 
-		$this->strings[] = $original;
+		$glotpress_id += 10;
+
+		$this->strings[$glotpress_id] = $original;
 
 		return $translated;
 	}

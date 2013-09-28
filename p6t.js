@@ -69,9 +69,11 @@ jQuery( document ).ready( function ($) {
 		var $el = jQuery("#content")
 			.find(":not(:has(*)):contains('" + original_string + "')")
 			.css('background-color', 'yellow');
-		$('html, body').animate({
-			scrollTop: $($el).offset().top - 32
-		}, 500);
+		if ($el.length) {
+			$('html, body').animate({
+				scrollTop: $($el).offset().top - 32
+			}, 500);
+		}
 	});
 		
 	$( '#p6t-editor li' ).click( function() {

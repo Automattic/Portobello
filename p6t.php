@@ -75,10 +75,18 @@ class p6t {
 	function admin_bar_menu( $wp_admin_bar ) {
 		$globe_image = staticize_subdomain( plugins_url( 'img/globe.png', __FILE__ ) );
 
+
+		if ( $this->is_polyglot_editor_request() ) {
+			$url = remove_query_arg( 'poly' );
+		} else {
+			$url = add_query_arg( 'poly', 'glot', http() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$url = bar_get_redirect_url( 'portobello_click', 'admin_bar', $url );
+		}
+
 		$wp_admin_bar->add_menu(
 			array(
 				'title' => "<img src='$globe_image' />",
-				'href' => add_query_arg( 'poly', 'glot' ),
+				'href' => $url,
 				'parent' => 'top-secondary'
 			)
 		);
@@ -271,7 +279,8 @@ class p6t {
 			}
 		}
 
-		return $wpdb->insert( 'gp_translations', $fields_to_insert, $field_formats );
+		$wpdb->insert( 'gp_translations', $fields_to_insert, $field_formats );
+		bump_stats_extras( 'portobello_insert', $locale );
 	}
 
 	function verify_glotpress_id( $id ) {

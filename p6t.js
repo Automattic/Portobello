@@ -77,9 +77,11 @@ jQuery( document ).ready( function ($) {
 	$( '#p6t-editor li' ).click( function() {
 		var original_string = $( this ).attr( 'data-original-singular' );
 
-		var $el = jQuery("#content")
-			.find(":not(:has(*)):contains('" + original_string + "')")
+		var $el = $(":not(#p6t-editor *)").filter(function() {
+		    return $(this).text() === original_string;
+		})
 			.css('background-color', 'yellow');
+
 		if ($el.length) {
 			$('html, body').animate({
 				scrollTop: $($el).offset().top - 32

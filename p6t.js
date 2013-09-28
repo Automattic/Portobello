@@ -18,6 +18,19 @@ jQuery( document ).ready( function ($) {
 		p6t.$locale.select2();
 	}
 
+	p6t.$list.find('li').each(function() {
+		var notVisible = false;
+		var original_string = $(this).text();
+		var $els = $(":not(#p6t-editor *)").filter(function() {
+		    return $(this).text() === original_string 
+		})
+
+		if (!$els.length || $els.filter(':hidden').length)
+		{
+			console.log('removing ', $(this).text());
+			$(this).remove();
+		}
+	});
 	p6t.$locale.change( function() {
 		var href = location.href.split( '?' )[0];
 		var qs = location.search.replace( '?', '' ).split( '&' );
@@ -64,9 +77,11 @@ jQuery( document ).ready( function ($) {
 	$( '#p6t-editor li' ).click( function() {
 		var original_string = $( this ).attr( 'data-original-singular' );
 
-		var $el = jQuery("#content")
-			.find(":not(:has(*)):contains('" + original_string + "')")
+		var $el = $(":not(#p6t-editor *)").filter(function() {
+		    return $(this).text() === original_string;
+		})
 			.css('background-color', 'yellow');
+
 		if ($el.length) {
 			$('html, body').animate({
 				scrollTop: $($el).offset().top - 32

@@ -1,7 +1,6 @@
 <?php
 
 // TODO: Style all the things.
-// TODO: Implement fancy plurals (translation_1 through translation_5) in the save routines.
 // TODO: Better post-save UI.
 
 class p6t {
@@ -239,7 +238,7 @@ class p6t {
 		$this->save_translation(
 			stripslashes( $_POST['locale'] ),
 			stripslashes( $_POST['original_string'] ),
-			stripslashes( $_POST['translations'] ),
+			array_map( 'stripslashes', $_POST['translations'] ),
 			$original_string_plural,
 			$context
 		);
@@ -257,20 +256,11 @@ class p6t {
 		if ( 0 == (int) $glotpress_id || 0 == (int) $translation_set_id )
 			return false;
 
-		// TODO: What if this user can only *suggest* translations?
-		$wpdb->update(
-			'gp_translations',
-			array( 'status' => 'old' ),
-			array( 'original_id' => $glotpress_id, 'translation_set_id' => $translation_set_id ),
-			array( '%s' ),
-			array( '%d', '%d' )
-		);
-
 		$fields_to_insert = array(
 			'original_id'        => $glotpress_id,
 			'translation_set_id' => $translation_set_id,
 			'user_id'            => $current_user->ID,
-			'status'             => 'current', // TODO: What if this user can only *suggest* translations?
+			'status'             => 'waiting',
 			'date_added'         => gmdate( 'Y-m-d H:i:s'),
 			'date_modified'      => gmdate( 'Y-m-d H:i:s'),
 		);

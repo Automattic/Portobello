@@ -77,11 +77,11 @@ class p6t {
 		$globe_image = staticize_subdomain( plugins_url( 'img/globe.png', __FILE__ ) );
 
 		$wp_admin_bar->add_menu(
-						array(
-							'title' => "<img src='$globe_image' />",
-							'href' => add_query_arg( 'poly', 'glot' ),
-							'parent' => 'top-secondary'
-						)
+			array(
+				'title' => "<img src='$globe_image' />",
+				'href' => add_query_arg( 'poly', 'glot' ),
+				'parent' => 'top-secondary'
+			)
 		);
 	}
 

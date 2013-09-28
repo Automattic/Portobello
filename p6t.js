@@ -18,6 +18,19 @@ jQuery( document ).ready( function ($) {
 		p6t.$locale.select2();
 	}
 
+	p6t.$list.find('li').each(function() {
+		var notVisible = false;
+		var original_string = $(this).text();
+		var $els = $(":not(#p6t-editor *)").filter(function() {
+		    return $(this).text() === original_string 
+		})
+
+		if (!$els.length || $els.filter(':hidden').length)
+		{
+			console.log('removing ', $(this).text());
+			$(this).remove();
+		}
+	});
 	p6t.$locale.change( function() {
 		var href = location.href.split( '?' )[0];
 		var qs = location.search.replace( '?', '' ).split( '&' );

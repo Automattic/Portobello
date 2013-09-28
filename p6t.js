@@ -47,9 +47,7 @@ jQuery( document ).ready( function ($) {
 
 		jQuery.post( ajaxurl, {
 			'action': 'p6t_save',
-			'original_string': p6t.original_string,
-			'original_string_plural': p6t.original_string_plural,
-			'context': p6t.context,
+			'glotpress_id': p6t.glotpress_id,
 			'translations[]': translations,
 			'is_plural': p6t.is_plural,
 			'locale': p6t.$locale.val()
@@ -90,6 +88,7 @@ jQuery( document ).ready( function ($) {
 		p6t.original_string_plural = $( this ).attr( 'data-original-plural' );
 		p6t.is_plural = false;
 		p6t.context = $( this ).find( '.p6t-context' ).text();
+		p6t.glotpress_id = data.glotpressId;
 
 		// TODO: This finds some matching strings in the markup and highlights them
 		// when their counterparts are clicked in the sidebar. It's not efficient or consistent.

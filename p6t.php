@@ -217,9 +217,7 @@ class p6t {
 	}
 
 	function handle_ajax_save() {
-		if ( empty( $_POST['original_string'] ) || empty( $_POST['is_plural'] ) || empty( $_POST['locale'] ) ) {
-			status_header( 400 );
-			die( __( 'Missing parameter.' ) );
+		if ( empty( $_POST['is_plural'] ) || empty( $_POST['locale'] ) ) {
 		}
 
 		if ( empty( $_POST['translations'] ) || !is_array( $_POST['translations'] ) ) {
@@ -227,8 +225,10 @@ class p6t {
 			die( __( 'Missing parameter.' ) );
 		}
 
-		$context = empty( $_POST['context'] ) ? null : stripslashes( $_POST['context'] );
-		$original_string_plural = empty( $_POST['original_string_plural'] ) ? null : stripslashes( $_POST['original_string_plural'] );
+		if ( empty( $_POST['glotpress_id'] ) ) {
+			status_header( 400 );
+			die( __( 'Missing parameter.' ) );
+		}
 
 		if ( count( $_POST['translations'] ) == 0 || ( true === $_POST['is_plural'] && count( $_POST['translations'] < 2 ) ) ) {
 			status_header( 400 );
@@ -237,23 +237,21 @@ class p6t {
 
 		$this->save_translation(
 			stripslashes( $_POST['locale'] ),
-			stripslashes( $_POST['original_string'] ),
-			array_map( 'stripslashes', $_POST['translations'] ),
-			$original_string_plural,
-			$context
+			(int) $_POST['glotpress_id'],
+			array_map( 'stripslashes', $_POST['translations'] )
 		);
 		exit;
 	}
 
-	function save_translation( $locale_abbreviation, $original_string, $translations, $original_string_plural = null, $context = null ) {
+	function save_translation( $locale, $glotpress_id, $translations ) {
 		global $wpdb, $current_user;
 
-		// TODO: Remove hard-coded $locale-abbreviation used for testing.
-		$locale_abbreviation = 'en-gb';
-		$glotpress_id = $this->find_glotpress_original_for( $original_string, $original_string_plural, $context );
-		$translation_set_id = $this->get_translation_set_id( $locale_abbreviation );
+		// TODO: Remove hard-coded $locale used for testing.
+		$locale = 'en-gb';
+		$glotpress_id = (int) $this->verify_glotpress_id( $glotpress_id );
+		$translation_set_id = (int) $this->get_translation_set_id( $locale );
 
-		if ( 0 == (int) $glotpress_id || 0 == (int) $translation_set_id )
+		if ( !$glotpress_id || ! $translation_set_id )
 			return false;
 
 		$fields_to_insert = array(
@@ -276,9 +274,14 @@ class p6t {
 		return $wpdb->insert( 'gp_translations', $fields_to_insert, $field_formats );
 	}
 
-	function get_translation_set_id( $locale_abbreviation ) {
+	function verify_glotpress_id( $id ) {
 		global $wpdb;
-		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM gp_translation_sets WHERE project_id = %d AND locale = %s', $this->glotpress_project_id, $locale_abbreviation ) );
+		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT `id` FROM `gp_originals` WHERE `id` = %d", $id ) );
+	}
+
+	function get_translation_set_id( $locale ) {
+		global $wpdb;
+		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM gp_translation_sets WHERE project_id = %d AND locale = %s', $this->glotpress_project_id, $locale ) );
 	}
 
 	function find_glotpress_original_for( $singular, $plural = null, $context = null ) {

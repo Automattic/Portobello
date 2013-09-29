@@ -101,12 +101,18 @@ jQuery( document ).ready( function ($) {
 		    return $(this).text() === original_string;
 		});
 
-		$($el).flash('yellow', 1000);
 
 		if ($el.length) {
-			$('html, body').animate({
-				scrollTop: $($el).offset().top - 32
-			}, 500);
+			$('html, body').animate(
+				{
+					scrollTop: $($el).offset().top - 32
+				},
+				{
+					duration: 500,
+					complete: function() {
+						$($el).flash('yellow', 1000);
+					}
+				});
 		}
 	});
 		

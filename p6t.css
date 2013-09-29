@@ -29,6 +29,7 @@ body.p6t {
 
 #p6t-editor .noticon {
 	font-family: Noticons;
+	text-decoration: none;
 }
 
 #p6t-editor label, #p6t-editor p, #p6t-editor textarea, #p6t-editor input, #p6t-editor span, #p6t-editor ul, #p6t-editor li, #p6t-editor * {
@@ -96,6 +97,7 @@ body.p6t {
 }
 
 #p6t-editor input[type="text"], #p6t-editor textarea {
+	display: block;
 	border-color: #DFDFDF;
 	background-color: white;
 	color: #333;

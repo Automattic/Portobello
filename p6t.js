@@ -4,9 +4,9 @@ jQuery( document ).ready( function ($) {
 	// cargo cult
 	$.fn.flash = function (color, duration) {
 	   var current = this.css('color');
-	   this.animate({ color: 'rgb(' + color + ')' }, duration / 2)
+	   this.animate({ color: color }, duration / 2)
 	   .animate({ color: current }, duration / 2)
-	   .animate({ color: 'rgb(' + color + ')' }, duration / 2)
+	   .animate({ color: color }, duration / 2)
 	   .animate({ color: current }, duration / 2);
 	}
 

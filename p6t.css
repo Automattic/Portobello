@@ -27,6 +27,10 @@ body.p6t {
 	font-family: sans-serif;
 }
 
+#p6t-editor .noticon {
+	font-family: Noticons;
+}
+
 #p6t-editor label, #p6t-editor p, #p6t-editor textarea, #p6t-editor input, #p6t-editor span, #p6t-editor ul, #p6t-editor li, #p6t-editor * {
 	font-size: 13px;
 }

@@ -99,7 +99,7 @@ class p6t {
 		?>
 
 		<div id="p6t-editor">
-			<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close-small" title="x"></span></a></div>
+			<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close" title="x"></span></a></div>
 			<h1><?php esc_html_e( 'Translate' ); ?></h1>
 <?php		if ( is_super_admin() ) : ?>
 			<div id="p6t-filters">
@@ -167,7 +167,7 @@ class p6t {
 
 		wp_enqueue_style( 'p6t', plugins_url( 'p6t.css', __FILE__ ) );
 		wp_enqueue_style( 'select2.css', '/wp-content/js/select2/select2.css', array(), '20120723' );
-		wp_enqueue_style( 'noticons', 'http://s0.wordpress.com/i/noticons/noticons.css', array(), '20120723' );
+		wp_enqueue_style( 'noticons', '/i/noticons/noticons.css', array(), '20120723' );
 
 		wp_enqueue_script( 'p6t', plugins_url( 'p6t.js', __FILE__ ), 'jquery', '20120723' );
 		wp_enqueue_script( 'select2.js', '/wp-content/js/select2/select2.js', array( 'jquery', 'jquery-ui-core' ), '20120723', true );

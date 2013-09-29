@@ -40,6 +40,9 @@ jQuery( document ).ready( function ($) {
 			$(this).remove();
 		}
 	});
+	$('#p6t-loading').hide();
+	p6t.$list.show();
+
 	p6t.$locale.change( function() {
 		var href = location.href.split( '?' )[0];
 		var qs = location.search.replace( '?', '' ).split( '&' );

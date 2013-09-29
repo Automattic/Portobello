@@ -140,6 +140,10 @@ body.p6t {
 	margin-left: 4px;
 }
 
+ul.translation-list {
+	display: none;
+}
+
 ul.translation-list li {
 	list-style-type: none;
 	padding: 2px;

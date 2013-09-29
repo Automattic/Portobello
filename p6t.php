@@ -170,7 +170,7 @@ class p6t {
 		wp_enqueue_style( 'noticons', '/i/noticons/noticons.css', array(), '20120723' );
 
 		wp_enqueue_script( 'p6t', plugins_url( 'p6t.js', __FILE__ ), 'jquery', '20120723' );
-		wp_enqueue_script( 'select2.js', '/wp-content/js/select2/select2.js', array( 'jquery', 'jquery-ui-core' ), '20120723', true );
+		wp_enqueue_script( 'select2.js', '/wp-content/js/select2/select2.js', array( 'jquery', 'jquery-ui-core', 'jquery-color' ), '20120723', true );
 
 	}
 

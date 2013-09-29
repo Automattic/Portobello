@@ -1,4 +1,12 @@
+
 jQuery( document ).ready( function ($) {
+
+	// cargo cult
+	$.fn.flash = function (color, duration) {
+	   var current = this.css('color');
+	   this.animate({ color: 'rgb(' + color + ')' }, duration / 2)
+	   .animate({ color: current }, duration / 2);
+	}
 
 	var p6t = {};
 	var ajaxurl = '/wp-admin/admin-ajax.php';
@@ -27,7 +35,6 @@ jQuery( document ).ready( function ($) {
 
 		if (!$els.length || $els.filter(':hidden').length)
 		{
-			console.log('removing ', $(this).text());
 			$(this).remove();
 		}
 	});
@@ -79,8 +86,9 @@ jQuery( document ).ready( function ($) {
 
 		var $el = $(":not(#p6t-editor *)").filter(function() {
 		    return $(this).text() === original_string;
-		})
-			.css('background-color', 'yellow');
+		});
+
+		$($el).flash('yellow', 1000);
 
 		if ($el.length) {
 			$('html, body').animate({

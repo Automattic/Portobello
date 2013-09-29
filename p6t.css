@@ -179,11 +179,11 @@ ul.translation-list li {
 	border-color: #bbb;
 	color: #464646;
 	background: #f2f2f2;
-	background-image: -webkit-gradient(linear, left bottom, left top, from(#ededed), to(#fff)); 
-	background-image: -webkit-linear-gradient(bottom, #ededed, #fff); 
-	background-image: -moz-linear-gradient(bottom, #ededed, #fff); 
-	background-image: -o-linear-gradient(bottom, #ededed, #fff); 
-	background-image: linear-gradient(to top, #ededed, #fff); 
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#ededed), to(#fff));
+	background-image: -webkit-linear-gradient(bottom, #ededed, #fff);
+	background-image: -moz-linear-gradient(bottom, #ededed, #fff);
+	background-image: -o-linear-gradient(bottom, #ededed, #fff);
+	background-image: linear-gradient(to top, #ededed, #fff);
 	text-shadow: rgba(255, 255, 255, 1) 0 1px 0;
 }
 
@@ -194,11 +194,11 @@ ul.translation-list li {
 
 #p6t-editor-form .button:active {
 	background: #eee;
-	background-image: -webkit-gradient(linear, left bottom, left top, from(#ededed), to(#fff)); 
-	background-image: -webkit-linear-gradient(bottom, #ededed, #fff); 
-	background-image: -moz-linear-gradient(bottom, #ededed, #fff); 
-	background-image: -o-linear-gradient(bottom, #ededed, #fff); 
-	background-image: linear-gradient(to top, #ededed, #fff); 
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#ededed), to(#fff));
+	background-image: -webkit-linear-gradient(bottom, #ededed, #fff);
+	background-image: -moz-linear-gradient(bottom, #ededed, #fff);
+	background-image: -o-linear-gradient(bottom, #ededed, #fff);
+	background-image: linear-gradient(to top, #ededed, #fff);
 }
 
 .p6t-paste-original span {

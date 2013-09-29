@@ -32,7 +32,7 @@ jQuery( document ).ready( function ($) {
 		var notVisible = false;
 		var original_string = $(this).text();
 		var $els = $(":not(#p6t-editor *)").filter(function() {
-		    return $(this).text() === original_string 
+		    return $(this).text() === original_string
 		})
 
 		if (!$els.length || $els.filter(':hidden').length)

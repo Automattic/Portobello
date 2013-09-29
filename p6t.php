@@ -113,6 +113,7 @@ class p6t {
 <?php		endif; ?>
 
 			<div id="p6t-editor-form">
+				<p class="p6t-error" style="color: red; display: none;">Sorry, there was an error saving your translation!</p>
 				<?php foreach( range( 0, $this->locale->nplurals - 1 ) as $plural_index ) : ?>
 					<p class="p6t-translation">
 						<label for="p6t-translation_<?php echo (int) $plural_index; ?>"><?php
@@ -128,6 +129,7 @@ class p6t {
 					</p>
 				<?php endforeach; ?>
 				<input type="submit" name="save" id="p6t-save" class="button" value="<?php esc_attr_e( 'Save' ); ?>">
+				<span class="p6t-translation-success" style="font-size: 20px; color: green; display: none;">&#10003;</span>
 			</div>
 
 			<?php if ( count( $this->translations ) > 0 ) : ?>

@@ -65,16 +65,27 @@ jQuery( document ).ready( function ($) {
     		translations.push( $( this ).val() );
 		});
 
-		jQuery.post( ajaxurl, {
-			'action': 'p6t_save',
-			'glotpress_id': p6t.glotpress_id,
-			'translations[]': translations,
-			'is_plural': p6t.is_plural,
-			'locale': p6t.$locale.val()
-		},
-		function( response ) {
-			console.log( response );
-		} );
+		var saveSuccess = function (jqXHR, textStatus)  {
+			$('#p6t-save').siblings('.p6t-translation-success').fadeIn(100).delay(1000).fadeOut(500);
+		}
+
+		var saveError = function (jqXHR, textStatus, errorThrown)  {
+			$('#p6t-save').parent().find('.p6t-error').fadeIn(100);
+			console.log('error saving translation', errorThrown);
+		}
+
+		$.ajax( ajaxurl, {
+			'type': 'POST',
+			'data': {
+				'action': 'p6t_save',
+				'glotpress_id': p6t.glotpress_id,
+				'translations[]': translations,
+				'is_plural': p6t.is_plural,
+				'locale': p6t.$locale.val()
+			},
+			'success': saveSuccess,
+			'error': saveError
+		});
 	} );
 
 	$( '#p6t-editor textarea' ).click( function( event ) {
@@ -98,6 +109,7 @@ jQuery( document ).ready( function ($) {
 	});
 		
 	$( '#p6t-editor li' ).click( function() {
+		$('.p6t-error').hide();
 		$( this ).append( p6t.$form );
 
 		data = $( this).data();

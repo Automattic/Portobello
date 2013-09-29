@@ -2,6 +2,14 @@ body.p6t {
 	margin-left:350px;
 }
 
+.p6t.sticky-menu #adminmenuwrap {
+	left: 351px;
+}
+
+.p6t.folded #adminmenuback {
+	width: 37px;
+}
+
 #p6t-editor {
 	position:fixed;
 	left:0;

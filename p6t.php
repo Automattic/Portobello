@@ -101,6 +101,7 @@ class p6t {
 		<div id="p6t-editor">
 			<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close" title="x"></span></a></div>
 			<h1><?php esc_html_e( 'Translate' ); ?></h1>
+			<p class="intro">This is some super helpful text that will tell you what to do!</p>
 <?php		if ( is_super_admin() ) : ?>
 			<div id="p6t-filters">
 				<select id="p6t-locale">

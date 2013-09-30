@@ -336,4 +336,4 @@ class p6t {
 	}
 }
 
-add_action( 'init', array( 'p6t', 'init' ) );
+add_action( 'init', array( 'p6t', 'init' ), 100 );

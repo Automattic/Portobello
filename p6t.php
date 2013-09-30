@@ -106,9 +106,10 @@ class p6t {
 				<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close" title="x"></span></a></div>
 				<h1><?php esc_html_e( 'Translate' ); ?></h1>
 				<p class="intro">
-					Help us translate WordPress.com.
-					Your suggestions will be moderated by our translation volunteers.
-					To learn more, please read <a href="http://en.support.wordpress.com/translation-faq/">our translation FAQ</a>.
+					<p>Help us translate WordPress.com!</p>
+
+					<p>Your suggestions will be moderated by our translation volunteers. To learn more about our translation process and community, please read <a href="http://en.support.wordpress.com/translation-faq/">our translation FAQ</a>.
+					</p>
 				</p>
 <?php		if ( is_super_admin() ) : ?>
 				<div id="p6t-filters">

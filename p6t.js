@@ -1,5 +1,6 @@
 
 jQuery( document ).ready( function ($) {
+	var $visibles;
 
 	// cargo cult
 	$.fn.flash = function (color, duration) {
@@ -28,18 +29,36 @@ jQuery( document ).ready( function ($) {
 		p6t.$locale.select2();
 	}
 
-	p6t.$list.find('li').each(function() {
-		var notVisible = false;
-		var original_string = $(this).text();
-		var $els = $(":not(#p6t-editor *)").filter(function() {
-		    return $(this).text() === original_string
-		})
+	$visibles = $( ":not(#p6t-editor *)").not( ':hidden' ).filter( function() {
+		var $this = $( this );
+		var clip = $this.css( 'clip' );
 
-		if (!$els.length || $els.filter(':hidden').length)
-		{
+		if ( 'auto' !== clip && clip ) {
+			return false;
+		}
+
+		if ( 'hidden' === $this.css( 'visibility' ) ) {
+			return false;
+		}
+
+		if ( ! $this.css( 'opacity' ) ) {
+			return false;
+		}
+
+		return true;
+	} );
+
+	p6t.$list.find('li').each(function() {
+		var original_string = $(this).text();
+		if ( ! $visibles.filter( function() {
+			return $( this ).text() === original_string;
+		} ).size() ) {
 			$(this).remove();
 		}
 	});
+
+	delete $visibles;
+
 	$('#p6t-loading').hide();
 	p6t.$list.show();
 

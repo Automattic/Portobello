@@ -12,11 +12,6 @@ class p6t {
 	static $instance;
 
 	static function &init() {
-		if ( ! is_super_admin() ) {
-			$false = false;
-			return $false;
-		}
-
 		if ( ! $instance ) {
 			$instance = new p6t;
 		}
@@ -29,10 +24,18 @@ class p6t {
 		// Needed so we can check the nplurals value for each language
 		require_once( ABSPATH . '/glotpress.dir/gp/locales/locales.php');
 
-		if ( isset( $_GET['sa-locale'] ) && is_super_admin() )
+		if ( isset( $_GET['sa-locale'] ) && is_super_admin() ) {
 			$this->locale = GP_Locales::by_slug( $_GET['sa-locale'] );
-		else
+		} else {
 			$this->locale = GP_Locales::by_slug( get_locale() );
+			if ( 'en' === $this->locale->slug ) {
+				return;
+			}
+		}
+
+		if ( ! $this->locale ) {
+			return;
+		}
 
 		$this->run_hooks();
 	}

@@ -78,7 +78,6 @@ class p6t {
 	function admin_bar_menu( $wp_admin_bar ) {
 		$globe_image = staticize_subdomain( plugins_url( 'img/globe.png', __FILE__ ) );
 
-
 		if ( $this->is_polyglot_editor_request() ) {
 			$url = remove_query_arg( 'poly' );
 		} else {
@@ -88,7 +87,7 @@ class p6t {
 
 		$wp_admin_bar->add_menu(
 			array(
-				'title' => "<img src='$globe_image' />",
+				'title' => "<img src='$globe_image' style='vertical-align: text-top'/>",
 				'href' => $url,
 				'parent' => 'top-secondary'
 			)

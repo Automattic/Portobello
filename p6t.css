@@ -35,11 +35,16 @@ body.p6t {
 	font-family: sans-serif;
 }
 
-#p6t-editor p.intro
-{
- background-color: #E9F3F7;
- padding-right: 20px;
- padding-left: 20px;
+#p6t-editor .intro {
+	background-color: #E9F3F7;
+	padding: 0 20px;
+	margin: 0;
+}
+
+#p6t-loading {
+	display: block;
+	padding: 20px 16px 0;
+	margin: 0;
 }
 
 #p6t-editor .noticon {
@@ -149,6 +154,7 @@ body.p6t {
 
 ul.translation-list {
 	display: none;
+	margin: 0 0 0 20px;
 }
 
 ul.translation-list li {

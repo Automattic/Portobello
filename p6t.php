@@ -134,7 +134,7 @@ class p6t {
 			</div>
 
 			<?php if ( count( $this->translations ) > 0 ) : ?>
-			  <span id="p6t-loading">Loading...</span>
+				<span id="p6t-loading">Loading...</span>
 				<ul class="translation-list">
 				<?php
 					foreach ( $this->translations as $glotpress_id => $translation ) :

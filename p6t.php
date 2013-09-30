@@ -105,7 +105,11 @@ class p6t {
 			<div class="p6t-header">
 				<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close" title="x"></span></a></div>
 				<h1><?php esc_html_e( 'Translate' ); ?></h1>
-				<p class="intro">This is some super helpful text that will tell you what to do!</p>
+				<p class="intro">
+					Help us translate WordPress.com.
+					Your suggestions will be moderated by our translation volunteers.
+					To learn more, please read <a href="http://en.support.wordpress.com/translation-faq/">our translation FAQ</a>.
+				</p>
 <?php		if ( is_super_admin() ) : ?>
 				<div id="p6t-filters">
 					<select id="p6t-locale">

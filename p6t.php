@@ -258,8 +258,6 @@ class p6t {
 	function save_translation( $locale, $glotpress_id, $translations ) {
 		global $wpdb, $current_user;
 
-		// TODO: Remove hard-coded $locale used for testing.
-		$locale = 'en-gb';
 		$glotpress_id = (int) $this->verify_glotpress_id( $glotpress_id );
 		$translation_set_id = (int) $this->get_translation_set_id( $locale );
 

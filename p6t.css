@@ -35,10 +35,14 @@ body.p6t {
 	font-family: sans-serif;
 }
 
-#p6t-editor .intro {
+.p6t-header {
 	background-color: #E9F3F7;
-	padding: 0 20px;
-	margin: 0;
+	padding: 20px 16px 0 16px;
+	border-bottom: 1px solid #d5dfe3;
+}
+
+#p6t-editor .intro {
+	margin: 1em 0 0;
 }
 
 #p6t-loading {
@@ -65,22 +69,18 @@ body.p6t {
 }
 
 #p6t-editor h1, #p6t-filters {
-	padding: 0 16px;
+	padding: 0;
 	margin: 0;
-	background: #e9f3f7;
 	width: 100%
 }
 
 #p6t-editor h1 {
+	line-height: 1;
 	font-size: 28px;
 	font-weight: bold;
-	padding: 10px 16px 0 16px;
+	margin-bottom: .5em;
 }
 
-
-#p6t-filters {
-	border-bottom: 1px solid #d5dfe3;
-}
 
 #p6t-filters > * {
 	margin: 10px 0;
@@ -89,6 +89,7 @@ body.p6t {
 #p6t-close-button {
 	position: absolute;
 	right: 0;
+	top: 4px;
 	margin: 7px 5px 0 0;
  }
 

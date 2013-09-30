@@ -99,19 +99,21 @@ class p6t {
 		?>
 
 		<div id="p6t-editor">
-			<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close" title="x"></span></a></div>
-			<h1><?php esc_html_e( 'Translate' ); ?></h1>
-			<p class="intro">This is some super helpful text that will tell you what to do!</p>
+			<div class="p6t-header">
+				<div id="p6t-close-button"><a href="<?php echo esc_url( remove_query_arg( 'poly' ) ); ?>"><span class="noticon noticon-close" title="x"></span></a></div>
+				<h1><?php esc_html_e( 'Translate' ); ?></h1>
+				<p class="intro">This is some super helpful text that will tell you what to do!</p>
 <?php		if ( is_super_admin() ) : ?>
-			<div id="p6t-filters">
-				<select id="p6t-locale">
-					<option value="en"<?php selected( $this->locale->slug, 'en' ); ?>>English</option>
-					<?php foreach ( $this->get_locale_list() as $locale ) : ?>
-						<option value="<?php echo esc_attr( $locale->locale ); ?>"<?php selected( $this->locale->slug, $locale->locale ); ?>><?php echo esc_html( $locale->name ); ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
+				<div id="p6t-filters">
+					<select id="p6t-locale">
+						<option value="en"<?php selected( $this->locale->slug, 'en' ); ?>>English</option>
+						<?php foreach ( $this->get_locale_list() as $locale ) : ?>
+							<option value="<?php echo esc_attr( $locale->locale ); ?>"<?php selected( $this->locale->slug, $locale->locale ); ?>><?php echo esc_html( $locale->name ); ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
 <?php		endif; ?>
+			</div>
 
 			<div id="p6t-editor-form">
 				<p class="p6t-error" style="color: red; display: none;">Sorry, there was an error saving your translation!</p>

@@ -132,9 +132,6 @@ class p6t {
 							);
 						?></label>
 						<textarea id="p6t-translation_<?php echo (int) $plural_index; ?>"></textarea>
-						<a href="#" class="p6t-paste-original" title="<?php esc_attr_e( 'Copy original' ) ?>">
-							<span class="noticon noticon-summary" title="<?php esc_attr_e( 'Copy original' ) ?>"></span>
-						</a>
 					</p>
 				<?php endforeach; ?>
 				<input type="submit" name="save" id="p6t-save" class="button" value="<?php esc_attr_e( 'Save' ); ?>">

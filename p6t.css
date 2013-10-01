@@ -42,7 +42,7 @@ body.p6t {
 }
 
 #p6t-editor .intro {
-	margin: 1em 0 0;
+	margin: 1em 0;
 }
 
 #p6t-loading {
@@ -52,7 +52,7 @@ body.p6t {
 }
 
 #p6t-editor .noticon {
-	font-family: Noticons;
+	font-family: Noticons !important;
 	text-decoration: none;
 }
 

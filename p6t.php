@@ -12,11 +12,11 @@ class p6t {
 	static $instance;
 
 	static function &init() {
-		if ( ! $instance ) {
-			$instance = new p6t;
+		if ( ! self::$instance ) {
+			self::$instance = new p6t;
 		}
 
-		return $instance;
+		return self::$instance;
 	}
 
 	function __construct() {
@@ -24,12 +24,16 @@ class p6t {
 		// Needed so we can check the nplurals value for each language
 		require_once( ABSPATH . '/glotpress.dir/gp/locales/locales.php');
 
-		if ( isset( $_GET['sa-locale'] ) && is_super_admin() ) {
-			$this->locale = GP_Locales::by_slug( $_GET['sa-locale'] );
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			$this->locale = GP_Locales::by_slug( $_POST['locale'] );
 		} else {
-			$this->locale = GP_Locales::by_slug( get_locale() );
-			if ( 'en' === $this->locale->slug ) {
-				return;
+			if ( isset( $_GET['sa-locale'] ) && is_super_admin() ) {
+				$this->locale = GP_Locales::by_slug( $_GET['sa-locale'] );
+			} else {
+				$this->locale = GP_Locales::by_slug( get_locale() );
+				if ( 'en' === $this->locale->slug ) {
+					return;
+				}
 			}
 		}
 
@@ -118,6 +122,8 @@ class p6t {
 						<?php endforeach; ?>
 					</select>
 				</div>
+<?php		else : ?>
+			<input type="hidden" id="p6t-locale" value="<?php echo esc_attr( $this->locale->slug ); ?>" />
 <?php		endif; ?>
 			</div>
 
@@ -235,6 +241,8 @@ class p6t {
 
 	function handle_ajax_save() {
 		if ( empty( $_POST['is_plural'] ) || empty( $_POST['locale'] ) ) {
+			status_header( 400 );
+			die( __( 'Missing parameter.' ) );
 		}
 
 		if ( empty( $_POST['translations'] ) || !is_array( $_POST['translations'] ) ) {

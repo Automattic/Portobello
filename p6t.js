@@ -25,7 +25,7 @@ jQuery( document ).ready( function ($) {
 	p6t.$search = $( '#p6t-translations-filter' );
 	p6t.$list = $( 'ul.translation-list' );
 
-	if ( typeof p6t.$locale.select2 == 'function' ) {
+	if ( p6t.$locale.is( 'select' ) && typeof p6t.$locale.select2 == 'function' ) {
 		p6t.$locale.select2();
 	}
 
